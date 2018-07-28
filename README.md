@@ -1,1 +1,1 @@
-Java class to determine all subsets of a given size for a set of a given size.
+Java classes to determine possible combinations and permutations of sets.
