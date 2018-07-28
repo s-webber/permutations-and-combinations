@@ -1,9 +1,13 @@
 package com.example;
 
+import static com.example.Utils.initArray;
+
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /** Determine all subsets of a given size for a set of a given size. */
-public class Combinations {
+public final class Combinations implements Iterator<int[]> {
    private final int setSize;
    private final int subsetSize;
    private int[] current;
@@ -27,19 +31,10 @@ public class Combinations {
       this.current = initArray(subsetSize);
    }
 
-   private static int[] initArray(int size) {
-      int[] result = new int[size];
-      for (int i = 0; i < size; i++) {
-         result[i] = i;
-      }
-      return result;
-   }
-
-   /** @return the next combination, or {@code null} if all combinations have already been found */
-   int[] next() {
-      if (current == null) {
-         // no more combinations
-         return null;
+   @Override
+   public int[] next() {
+      if (!hasNext()) {
+         throw new NoSuchElementException();
       }
 
       int[] copy = Arrays.copyOf(current, current.length);
@@ -51,8 +46,6 @@ public class Combinations {
          // if the first element of the array is already at its maximum value then there are no more combinations
          current = null;
       } else {
-         // working back from the penultimate element in the array,
-         // find an an element whose value is one less that the
          int i = subsetSize - 2;
          while (current[i] + 1 == current[i + 1]) {
             i--;
@@ -66,5 +59,10 @@ public class Combinations {
       }
 
       return copy;
+   }
+
+   @Override
+   public boolean hasNext() {
+      return current != null;
    }
 }
