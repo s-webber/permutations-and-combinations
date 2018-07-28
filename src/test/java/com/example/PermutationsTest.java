@@ -190,12 +190,6 @@ public class PermutationsTest {
       assertResults(p, testData.expectations);
    }
 
-   @Test
-   public void zcheckPermutations() {
-      Permutations p = new Permutations(2);
-      assertResults(p, array(0, 1), array(1, 0));
-   }
-
    @DataProvider
    private Integer[][] expectedSizes() {
       // @formatter:off
